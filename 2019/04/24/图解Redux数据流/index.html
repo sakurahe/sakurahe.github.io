@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content>
+    <meta name="keyword" content>
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        图解Redux数据流 - undefined
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i>  </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/images/avatar.png">
+        </div>
+        <div class="name">
+            <i>John Doe</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>HOME</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>TAGS</span>
+                </a>
+            </li>
+            <li>
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>ARCHIVES</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>ABOUT</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#什么是Redux"><span class="toc-text">什么是Redux</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#为什么要使用Redux"><span class="toc-text">为什么要使用Redux</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Redux的基本原则"><span class="toc-text">Redux的基本原则</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#唯一的store"><span class="toc-text">唯一的store</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#保持状态只读"><span class="toc-text">保持状态只读</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数据改变只能通过纯函数来完成"><span class="toc-text">数据改变只能通过纯函数来完成</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#在Flutter中应用Redux"><span class="toc-text">在Flutter中应用Redux</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#添加依赖"><span class="toc-text">添加依赖</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#创建State"><span class="toc-text">创建State</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#创建Action"><span class="toc-text">创建Action</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#创建Reducer"><span class="toc-text">创建Reducer</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#创建store"><span class="toc-text">创建store</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#将Store放入顶层"><span class="toc-text">将Store放入顶层</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#在子页面中获取Store中的state"><span class="toc-text">在子页面中获取Store中的state</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#发出Action"><span class="toc-text">发出Action</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ViewModel性能优化"><span class="toc-text">ViewModel性能优化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-text">总结</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">search</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i>  </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        图解Redux数据流
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">Post：<span>2019-04-24 15:16:03</span></span>
+        
+        <span class="attr">Tags：/
+        
+        <a class="tag" href="/tags/#flutter" title="flutter">flutter</a>
+        <span>/</span>
+        
+        <a class="tag" href="/tags/#redux" title="redux">redux</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">Visit：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content ">
+        <h2 id="什么是Redux"><a href="#什么是Redux" class="headerlink" title="什么是Redux"></a>什么是Redux</h2><p><a href="https://cn.redux.js.org/" target="_blank" rel="noopener">官网</a>的解释是：</p>
+<blockquote>
+<p>Redux 是 JavaScript 状态容器，提供可预测化的状态管理。 (如果你需要一个 WordPress 框架，请查看 Redux Framework。)<br>可以让你构建一致化的应用，运行于不同的环境（客户端、服务器、原生应用），并且易于测试。不仅于此，它还提供 超爽的开发体验，比如有一个时间旅行调试器可以编辑后实时预览。<br>Redux 除了和 React 一起用外，还支持其它界面库。 它体小精悍（只有 2kB，包括依赖）。</p>
+</blockquote>
+<p>没有接触过的人一看肯定是一脸懵逼，那么什么是Redux呢？</p>
+<p>一句话概括，<strong>redux只是一个实现了Flux思想的数据流框架</strong>.</p>
+<p>简单介绍一下Flux</p>
+<p>一个Flux应用包含四个部分：</p>
+<ul>
+<li>Dispatcher，处理动作分发，维持 Store 之间的依赖关系</li>
+<li>Store，负责存储数据和处理数据相关逻辑</li>
+<li>Action，触发 Dispatcher</li>
+<li>View，视图，负责显示用户界面</li>
+</ul>
+<p><img src="/images/flux_flow.png" alt="Flux数据流"></p>
+<p>通过上图可以看出来，Flux 的特点就是<strong>单向数据流</strong>：</p>
+<ul>
+<li>用户在 View 层发起一个 Action 对象给 Dispatcher</li>
+<li>Dispatcher 接收到 Action 并要求 Store 做相应的更新</li>
+<li>Store 做出相对应更新，然后发出一个 change 事件</li>
+<li>View 接收到 change 事件后，更新页面</li>
+</ul>
+<p>所以在 Flux 体系下，如果想要驱动界面，只能派发一个 Store。在这种规矩下，如果想要追溯一个应用的逻辑就变得很轻松了。</p>
+<h2 id="为什么要使用Redux"><a href="#为什么要使用Redux" class="headerlink" title="为什么要使用Redux"></a>为什么要使用Redux</h2><p>在我们一开始构建应用的时候，也许很简单。我们有一些状态，直接把他们映射成视图就可以了。这种简单应用可能并不需要状态管理。</p>
+<p><img src="/images/simpleness.jpg" alt="简单状态流"></p>
+<p>但是随着功能的增加，你的应用程序将会有几十个甚至上百个状态。这个时候你的应用应该会是这样。</p>
+<p><img src="/images/complex.jpg" alt="复杂状态流"></p>
+<p>我们很难再清楚的测试维护我们的状态，因为它看上去实在是太复杂了！而且还会有多个页面共享同一个状态，例如当你进入一个文章点赞，退出到外部缩略展示的时候，外部也需要显示点赞数，这时候就需要同步这两个状态。</p>
+<h2 id="Redux的基本原则"><a href="#Redux的基本原则" class="headerlink" title="Redux的基本原则"></a>Redux的基本原则</h2><p>上文提到过，Redux是Flux的一种实现，但是除了“单一数据源”之外，Redux还强调<a href="https://cn.redux.js.org/docs/introduction/ThreePrinciples.html" target="_blank" rel="noopener">三大基本原则</a>:</p>
+<ul>
+<li>单一数据源(Single source of truth)</li>
+<li>State 是只读的(State is read-only)</li>
+<li>使用纯函数来执行修改(Changes are made with pure functions)</li>
+</ul>
+<h3 id="唯一的store"><a href="#唯一的store" class="headerlink" title="唯一的store"></a>唯一的store</h3><p>在 Flux 中，应用可以拥有多个 Store，但是分成多个 Store 容易造成数据冗余，数据一致性不太好处理，而且 Store 之间可能还会有依赖，增加了应用的复杂度。所以 Redux 对这个问题的解决方法就是：<strong>整个应用的 state 被储存在一棵 object tree 中，并且这个 object tree 只存在于唯一一个 store 中。</strong></p>
+<h3 id="保持状态只读"><a href="#保持状态只读" class="headerlink" title="保持状态只读"></a>保持状态只读</h3><p><strong>唯一改变 state 的方法就是触发 action，action 是一个用于描述已发生事件的普通对象。</strong>这样确保了视图和网络请求都不能直接修改 state，相反它们只能表达想要修改的意图。因为所有的修改都被集中化处理，且严格按照一个接一个的顺序执行。</p>
+<h3 id="数据改变只能通过纯函数来完成"><a href="#数据改变只能通过纯函数来完成" class="headerlink" title="数据改变只能通过纯函数来完成"></a>数据改变只能通过纯函数来完成</h3><p>这里说的纯函数就是<a href="https://www.redux.org.cn/docs/Glossary.html#reducer" target="_blank" rel="noopener">reducers</a>，它接收先前的 state 和 action，并返回新的 state。</p>
+<h2 id="在Flutter中应用Redux"><a href="#在Flutter中应用Redux" class="headerlink" title="在Flutter中应用Redux"></a>在Flutter中应用Redux</h2><p>下面咱们根据例子来了解一下Redux在Flutter中的应用</p>
+<h3 id="添加依赖"><a href="#添加依赖" class="headerlink" title="添加依赖"></a>添加依赖</h3><p>在pubspec.yaml中添加以下依赖</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">redux: ^3.0.0</span><br><span class="line">flutter_redux: ^0.5.3</span><br></pre></td></tr></table></figure>
+<h3 id="创建State"><a href="#创建State" class="headerlink" title="创建State"></a>创建State</h3><p>状态是由<strong>reducer生成并储存在Store</strong>里面的。Store更新状态的时候，并<strong>不是更改原来的状态对象</strong>，而是直接将reducer生成的新的状态对象<strong>替换</strong>掉老的状态对象。所以，我们的状态应该是immutable的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">@immutable</span><br><span class="line">class AppState &#123;</span><br><span class="line">  final int count;</span><br><span class="line"></span><br><span class="line">  AppState(&#123;</span><br><span class="line">    this.count = 0,</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="创建Action"><a href="#创建Action" class="headerlink" title="创建Action"></a>创建Action</h3><p>action到底是什么？View如何发出action。其实，action只是我们对状态进行操作方法的一个代号而已。在我们这个应用中，唯一的一个功能就是让count的值+1，所以我们这里只有一个action。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line"> * 定义操作该State的全部Action</span><br><span class="line"> * 这里只有增加count一个动作</span><br><span class="line"> */</span><br><span class="line">class IncrementAction &#123;&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="创建Reducer"><a href="#创建Reducer" class="headerlink" title="创建Reducer"></a>创建Reducer</h3><p>reducer是我们的状态生成器，它接收一个我们原来的状态，然后接收一个action，再匹配这个action生成一个新的状态。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">final countReducer = combineReducers&lt;int&gt;(&#123;</span><br><span class="line">  TypedReducer&lt;int, IncrementAction&gt;(_increment),</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">int _increment(int state, action) &#123;</span><br><span class="line">  return state + 1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="创建store"><a href="#创建store" class="headerlink" title="创建store"></a>创建store</h3><p>Store接收一个reducer，以及初始化State，我们想用Redux管理全局的状态的话，需要将store储存在应用的入口才行。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">final Store&lt;AppState&gt; store = Store&lt;AppState&gt;(</span><br><span class="line">  appReducer,</span><br><span class="line">  initialState: AppState(),</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<h3 id="将Store放入顶层"><a href="#将Store放入顶层" class="headerlink" title="将Store放入顶层"></a>将Store放入顶层</h3><p>futter_redux包提供了一个StoreProvider用来接收store。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">class MyApp extends StatelessWidget &#123;</span><br><span class="line">  final Store&lt;AppState&gt; store = Store&lt;AppState&gt;(</span><br><span class="line">    appReducer,</span><br><span class="line">    initialState: AppState(),</span><br><span class="line">  );</span><br><span class="line"></span><br><span class="line">  @override</span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    return StoreProvider(</span><br><span class="line">      store: store,</span><br><span class="line">      child: MaterialApp(</span><br><span class="line">        title: &apos;Example&apos;,</span><br><span class="line">        debugShowCheckedModeBanner: false,</span><br><span class="line">        home: IncrementContainer(),</span><br><span class="line">      ),</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="在子页面中获取Store中的state"><a href="#在子页面中获取Store中的state" class="headerlink" title="在子页面中获取Store中的state"></a>在子页面中获取Store中的state</h3><p>这里建议大家把实际代码对照下面的解释一起看。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">static _ViewModel fromStore(Store&lt;AppState&gt; store) &#123;</span><br><span class="line">    return _ViewModel(</span><br><span class="line">      count: store.state.count,</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">StoreConnector&lt;AppState, _ViewModel&gt;(</span><br><span class="line">      distinct: true,</span><br><span class="line">      converter: _ViewModel.fromStore,</span><br><span class="line">      builder: (context, vm) =&gt; IncrementComponent(</span><br><span class="line">            count: vm.count,</span><br><span class="line">          ),</span><br><span class="line">    );</span><br></pre></td></tr></table></figure>
+<p>要想获取store我们需要使用StoreConnector&lt;S,ViewModel&gt;。StoreConnector能够通过StoreProvider找到顶层的store。而且能够在state发生变化时rebuilt Widget。</p>
+<p><img src="/images/explain.jpg" alt="StoreConnector解释"></p>
+<ul>
+<li>首先这里需要强制声明类型，S代表我们需要从store中获取什么类型的state，ViewModel指的是我们使用这个State时的实际类型。</li>
+<li>然后我们需要声明一个converter&lt;S,ViewModel&gt;，它的作用是将Store转化成实际ViewModel将要使用的信息，比如我们这里实际上要使用的是count，所以这里将count提取出来。</li>
+<li>builder是我们实际根据state创建Widget的地方，它接收一个上下文context，以及刚才我们转化出来的ViewModel，所以我们就只需要把拿到的count放进Text Widget中进行渲染就好了。</li>
+</ul>
+<h3 id="发出Action"><a href="#发出Action" class="headerlink" title="发出Action"></a>发出Action</h3><p>store.dispatch发起一个action，任何中间件都会拦截该操作,在运行中间件后，操作将被发送到给定的reducer生成新的状态，并更新状态树。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">static _ViewModel fromStore(Store&lt;AppState&gt; store) &#123;</span><br><span class="line">    return _ViewModel(</span><br><span class="line">      onTap: () =&gt; store.dispatch(IncrementAction()),</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">StoreConnector&lt;AppState, _ViewModel&gt;(</span><br><span class="line">      distinct: true,</span><br><span class="line">      converter: _ViewModel.fromStore,</span><br><span class="line">      builder: (context, vm) =&gt; IncrementComponent(</span><br><span class="line">            onTap: vm.onTap,</span><br><span class="line">          ),</span><br><span class="line">    );</span><br></pre></td></tr></table></figure>
+<p>以上便是在flutter中使用redux共享状态信息的全部内容。</p>
+<h2 id="ViewModel性能优化"><a href="#ViewModel性能优化" class="headerlink" title="ViewModel性能优化"></a>ViewModel性能优化</h2><p>我们的StoreConnector能够将store提取出信息并转化成ViewModel，这里其实是有一个性能优化的点的。我们这里的例子非常简单，它的ViewModel就只是一个int的值，当我们ViewModel很复杂的时候，我们可以使用StoreConnector的distinct属性进行性能优化。使用方法很简单：需要我们在ViewModel中重写[==] and [hashCode] 方法，然后把distinct属性设为true。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>我们已经完成了整个应用，现在大家了解Redux的运行原理了吗？</p>
+<p>具体代码可以到 <a href="https://github.com/sakurahe/flutter-_redux_count" target="_blank" rel="noopener">GitHub</a> 查看。</p>
+
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = ""
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>
