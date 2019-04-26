@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content>
+    <meta name="keyword" content>
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        git 子模块 - undefined
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i>  </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/images/avatar.png">
+        </div>
+        <div class="name">
+            <i>John Doe</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>HOME</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>TAGS</span>
+                </a>
+            </li>
+            <li>
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>ARCHIVES</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>ABOUT</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#添加子模块"><span class="toc-text">添加子模块</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#更新子模块"><span class="toc-text">更新子模块</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#删除子模块"><span class="toc-text">删除子模块</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#克隆含有子模块的仓库"><span class="toc-text">克隆含有子模块的仓库</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">search</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i>  </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        git 子模块
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">Post：<span>2019-04-25 16:18:38</span></span>
+        
+        <span class="attr">Tags：/
+        
+        <a class="tag" href="/tags/#git" title="git">git</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">Visit：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content ">
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>今天在提交hexo源码至<a href="https://github.com/sakurahe/sakurahe.github.io/tree/blog" target="_blank" rel="noopener">github</a>的时候，出现了黄色警告，大概意思就是说在一个Git仓库 中添加 其他 Git 仓库，然后上网查阅了相关资料。主要使用git的 <code>git submodule</code> 命令为一个git项目添加子git项目。</p>
+<h2 id="添加子模块"><a href="#添加子模块" class="headerlink" title="添加子模块"></a>添加子模块</h2><p>假设你想添加<a href="https://github.com/aircloud/hexo-theme-aircloud.git" target="_blank" rel="noopener">hexo-theme-aircloud</a>库到你的项目中，使用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git submodule add https://github.com/aircloud/hexo-theme-aircloud.git themes/aircloud</span><br></pre></td></tr></table></figure>
+<p>在这里，themes目录下的aircloud文件夹就是新增加的子模块目录，命令运行完后，会生成一个 <code>.gitmodules</code> 的文件，该文件存放的是子模块的信息，使用 <code>cat</code> 查看内容为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[submodule &quot;themes/aircloud&quot;]</span><br><span class="line">        path = themes/aircloud</span><br><span class="line">        url = https://github.com/aircloud/hexo-theme-aircloud.git</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>.gitmodules文件</strong>：保存项目 URL 与已经拉取的本地目录之间的映射，有多个子模块则含有多条记录，会随着版本控制一起被拉去和推送的。</p>
+</blockquote>
+<h2 id="更新子模块"><a href="#更新子模块" class="headerlink" title="更新子模块"></a>更新子模块</h2><p>首先需要进入子模块目录，然后执行以下命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git fetch</span><br><span class="line">git merge origin/master</span><br></pre></td></tr></table></figure>
+<p>此外，还可以在主目录下，直接用下面的命令更新子模块</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git submodule update --remote name</span><br></pre></td></tr></table></figure>
+<p><em>注意：上面都是对master分支的操作，无法操作其他分支</em></p>
+<p>使用下面的方式，更新库的dev分支：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config -f .gitmodules submodule.name.branch dev</span><br><span class="line">git submodule update --remote</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>这里对 .gitmodules 加了 -f 参数，修改提交后对所有用户有效。</p>
+</blockquote>
+<h2 id="删除子模块"><a href="#删除子模块" class="headerlink" title="删除子模块"></a>删除子模块</h2><p>有添加，当然也会有删除。以删除 <code>themes/aircloud</code> 为例：</p>
+<ul>
+<li>使用 <code>git rm --cached themes/aircloud</code> 将themes/aircloud从版本控制中删除（本地仍保留），若不需要可以不带 <code>--cached</code> 进行完全删除</li>
+<li>使用 <code>rm -rf .git/modules/themes/aircloud</code>, 删除.git下的缓存模块，最后提交项目。</li>
+</ul>
+<p>经过上面的删除后还可以进行添加子模块。</p>
+<h2 id="克隆含有子模块的仓库"><a href="#克隆含有子模块的仓库" class="headerlink" title="克隆含有子模块的仓库"></a>克隆含有子模块的仓库</h2><p>若需要克隆含有子模块的仓库，直接进行克隆是无法拉取子模块的代码，可加上 <code>--recursive</code> 参数，如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone --recursive https://github.com/...</span><br></pre></td></tr></table></figure>
+<p>或者使用下面的三部操作：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git clone  https://github.com/...</span><br><span class="line">git submodule init</span><br><span class="line">git submodule update</span><br></pre></td></tr></table></figure>
+<p>更多子模块的操作，请参考官方文档：<a href="https://git-scm.com/book/zh/v1/Git-%E5%B7%A5%E5%85%B7-%E5%AD%90%E6%A8%A1%E5%9D%97" target="_blank" rel="noopener">Git 工具 - 子模块</a></p>
+
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = ""
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>
