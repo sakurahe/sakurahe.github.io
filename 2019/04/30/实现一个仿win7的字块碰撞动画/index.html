@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content>
+    <meta name="keyword" content>
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        实现一个仿win7的字块碰撞动画 - undefined
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i>  </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/images/avatar.png">
+        </div>
+        <div class="name">
+            <i>John Doe</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>HOME</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>TAGS</span>
+                </a>
+            </li>
+            <li>
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>ARCHIVES</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>ABOUT</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#效果图GIF"><span class="toc-text">效果图GIF</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实现"><span class="toc-text">实现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#我们先定义一个移动盒子的class"><span class="toc-text">我们先定义一个移动盒子的class</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#我们还需要定义盒子所移动的范围"><span class="toc-text">我们还需要定义盒子所移动的范围</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#更新盒子位置"><span class="toc-text">更新盒子位置</span></a></li></ol></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">search</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i>  </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        实现一个仿win7的字块碰撞动画
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">Post：<span>2019-04-30 11:58:44</span></span>
+        
+        <span class="attr">Tags：/
+        
+        <a class="tag" href="/tags/#flutter" title="flutter">flutter</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">Visit：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content ">
+        <h2 id="效果图GIF"><a href="#效果图GIF" class="headerlink" title="效果图GIF"></a>效果图GIF</h2><div><img src="/images/crash.gif" alt="效果图"></div>
+
+<p>代码已提交至<a href="https://github.com/sakurahe/flutter_animation/blob/master/lib/example/animate_demo.dart" target="_blank" rel="noopener">github</a></p>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><h3 id="我们先定义一个移动盒子的class"><a href="#我们先定义一个移动盒子的class" class="headerlink" title="我们先定义一个移动盒子的class"></a>我们先定义一个移动盒子的class</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">class MoveBox &#123;</span><br><span class="line">  double x; // 初始x轴位置</span><br><span class="line">  double y; // 初始y轴位置</span><br><span class="line">  double speedX; // x速度</span><br><span class="line">  double speedY; // y速度</span><br><span class="line">  double block; // 移动盒子大小</span><br><span class="line">  Color color; // 盒子颜色</span><br><span class="line"></span><br><span class="line">  MoveBox(&#123;this.x, this.y, this.speedX, this.speedY, this.block, this.color&#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="我们还需要定义盒子所移动的范围"><a href="#我们还需要定义盒子所移动的范围" class="headerlink" title="我们还需要定义盒子所移动的范围"></a>我们还需要定义盒子所移动的范围</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">double _width = 0.0; // 设备宽</span><br><span class="line">double _height = 0.0; // 设备高</span><br><span class="line">Widget build(BuildContext context) &#123;</span><br><span class="line">  ...</span><br><span class="line">  setState(() &#123;</span><br><span class="line">     _width = MediaQuery.of(context).size.width;</span><br><span class="line">     _height = MediaQuery.of(context).size.height -</span><br><span class="line">         appBar.preferredSize.height -</span><br><span class="line">         MediaQuery.of(context).padding.top;</span><br><span class="line">   &#125;);</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里需要在生成widget树重新对宽和高进行赋值</p>
+<h3 id="更新盒子位置"><a href="#更新盒子位置" class="headerlink" title="更新盒子位置"></a>更新盒子位置</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">moveBox.x += moveBox.speedX;</span><br><span class="line">moveBox.y += moveBox.speedY;</span><br><span class="line">// 限定下边界</span><br><span class="line">if (moveBox.y &gt; _height - moveBox.block) &#123;</span><br><span class="line">  moveBox.y = _height - moveBox.block;</span><br><span class="line">  moveBox.speedY = -moveBox.speedY;</span><br><span class="line">  randomColor();</span><br><span class="line">&#125;</span><br><span class="line">// 限定上边界</span><br><span class="line">if (moveBox.y &lt; 0) &#123;</span><br><span class="line">  moveBox.y = 0;</span><br><span class="line">  moveBox.speedY = -moveBox.speedY;</span><br><span class="line">  randomColor();</span><br><span class="line">&#125;</span><br><span class="line">// 限定左边界</span><br><span class="line">if (moveBox.x &lt; 0) &#123;</span><br><span class="line">  moveBox.x = 0;</span><br><span class="line">  moveBox.speedX = -moveBox.speedX;</span><br><span class="line">  randomColor();</span><br><span class="line">&#125;</span><br><span class="line">// 限定右边界</span><br><span class="line">if (moveBox.x &gt; _width - moveBox.block) &#123;</span><br><span class="line">  moveBox.x = _width - moveBox.block;</span><br><span class="line">  moveBox.speedX = -moveBox.speedX;</span><br><span class="line">  randomColor();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在这里，每次碰撞到边界就会重新随机一种颜色</p>
+<p>这样，碰撞盒子就完成了。</p>
+
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = ""
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>
