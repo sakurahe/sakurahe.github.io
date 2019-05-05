@@ -5,7 +5,9 @@ tags:
     - flutter
 ---
 
-## 效果图
+## 效果图GIF
+
+<div>![效果图](/images/crash.gif)</div>
 
 代码已提交至[github](https://github.com/sakurahe/flutter_animation/blob/master/lib/example/animate_demo.dart)
 
