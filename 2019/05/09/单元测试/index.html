@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content>
+    <meta name="keyword" content>
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        单元测试 - undefined
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i>  </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/images/avatar.png">
+        </div>
+        <div class="name">
+            <i>John Doe</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>HOME</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>TAGS</span>
+                </a>
+            </li>
+            <li>
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>ARCHIVES</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>ABOUT</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#什么是单元测试"><span class="toc-text">什么是单元测试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#为什么要单元测试"><span class="toc-text">为什么要单元测试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#如何进行单元测试"><span class="toc-text">如何进行单元测试</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#使用什么工具进行测试"><span class="toc-text">使用什么工具进行测试</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#哪些地方需要单元测试"><span class="toc-text">哪些地方需要单元测试</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-text">总结</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">search</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i>  </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        单元测试
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">Post：<span>2019-05-09 10:49:24</span></span>
+        
+        
+        <span class="attr">Visit：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content ">
+        <h2 id="什么是单元测试"><a href="#什么是单元测试" class="headerlink" title="什么是单元测试"></a>什么是单元测试</h2><p>下面是wikipedia对单元测试的解释：</p>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Unit_testing" target="_blank" rel="noopener">英文</a></li>
+<li><a href="https://zh.wikipedia.org/wiki/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95" target="_blank" rel="noopener">中文</a></li>
+</ul>
+<h2 id="为什么要单元测试"><a href="#为什么要单元测试" class="headerlink" title="为什么要单元测试"></a>为什么要单元测试</h2><p>组件的单元测试有很多好处：</p>
+<ul>
+<li><strong>提供描述组件行为的文档</strong>。优秀的测试代码会清晰的描述出代码的逻辑关系，从而使不是这个项目的开发者也能够快速的了解代码作用</li>
+<li><strong>节省手动测试的时间</strong>。单元测试可以在手动测试之前提前发现问题，从而减少手动测试时发生问题的可能性</li>
+<li><strong>减少bug</strong>。当测试失败时，失败原因无非只有两种，测试代码错误或业务代码错误，在测试代码正确的情况下，可以提前发现业务代码中的错误或bug,快速定位去修复代码</li>
+<li><strong>促进重构</strong>。重构，每个开发者都经历过。以往，写完一个项目，运行，没什么问题，但是当你改动某个方法后，可能就导致项目运行失败。如果你有单元测试，情况将大不相同。写完一个组件或类，把这个组件或类的单元测试也写了，确保逻辑的正确性，当你写完后整个项目的组件或类后，如果单元测试通过，将很大程度减少运行失败的可能性</li>
+</ul>
+<p>当然，测试也有缺点：</p>
+<ul>
+<li>学习成本比较高</li>
+<li>会投入大量时间去写测试代码</li>
+<li>推广和运用单元测试需要较大投入</li>
+</ul>
+<h2 id="如何进行单元测试"><a href="#如何进行单元测试" class="headerlink" title="如何进行单元测试"></a>如何进行单元测试</h2><p>单元测试应该：</p>
+<ul>
+<li>可以快速运行</li>
+<li>易于理解</li>
+<li>只测试一个独立单元的工作</li>
+</ul>
+<h3 id="使用什么工具进行测试"><a href="#使用什么工具进行测试" class="headerlink" title="使用什么工具进行测试"></a>使用什么工具进行测试</h3><p>vue提供了一个组件单元测试的官方库：<a href="https://vue-test-utils.vuejs.org/" target="_blank" rel="noopener">Vue Test Utils</a></p>
+<p>你也可以使用jest来进行测试，它是Facebook开发的一款JavaScript测试框架，拥有以下特点：</p>
+<ul>
+<li><strong>开箱即用，无需配置</strong></li>
+<li><strong>快速的运行测试</strong>。Jest会首先运行以前失败的测试，并根据测试文件所花费的时间重新组织运行。</li>
+<li><strong>内置Code Coverage</strong>。通过添加 <code>--coverage</code> 生成代码覆盖率，不需要额外的设置。Jest可以从整个项目中收集代码覆盖率信息，包括未测试的文件。</li>
+<li><strong>内置snapshots机制</strong>。轻松地进行跟踪大型对象的测试。snapshots可以与测试一起使用，也可以嵌入到内联中。</li>
+</ul>
+<p>具体的<a href="https://jestjs.io/docs/en/getting-started" target="_blank" rel="noopener">使用文档</a>和<a href="https://jestjs.io/docs/en/api" target="_blank" rel="noopener">api</a>，可以查看jest的<a href="https://jestjs.io/" target="_blank" rel="noopener">官网</a></p>
+<h3 id="哪些地方需要单元测试"><a href="#哪些地方需要单元测试" class="headerlink" title="哪些地方需要单元测试"></a>哪些地方需要单元测试</h3><ul>
+<li><strong>短期不会变化的UI组件</strong></li>
+<li><strong>逻辑复杂的</strong></li>
+<li><strong>不易于理解的</strong>。有的代码时间一久连自己都看不懂了，测试代码有助于理解代码的功能和需求</li>
+<li><strong>公共代码或组件</strong></li>
+<li><strong>核心业务代码</strong>。核心业务代码应该有较高的测试覆盖率</li>
+<li><strong>api测试</strong></li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>单元测试确实会带给你相当多的好处，但不是立刻体验出来。正如买保险，交了很多保费，没病没痛。单元测试也一样，写了可以买个放心，对代码的一种保障，有bug尽快测出来，没bug就最好。</p>
+
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = ""
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>
